@@ -62,7 +62,7 @@ export default {
       this.form.status = 0;
       course.create(this.form).then(res => {
         if (res.code == 200) {
-          this.$router.push({ name: "CourseList" });
+          this.$router.push({ name: "Course" });
         } else {
           this.$message.err(res.msg);
         }

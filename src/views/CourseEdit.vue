@@ -110,7 +110,7 @@ export default {
       course.update(this.id, this.form).then(res => {
         if (res.code == 200) {
           this.getcourse();
-          this.$router.push({ name: "CourseList" });
+          this.$router.push({ name: "Course" });
         } else {
           this.$message.err(res.msg);
         }
