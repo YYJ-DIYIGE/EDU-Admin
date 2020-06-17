@@ -11,7 +11,7 @@
       <div class="subject-list">
         <el-table :data="tableData" style="width: 100%">
           <el-table-column prop="id" label="id" width="100"> </el-table-column>
-          <el-table-column prop="stem" label="名称" width="350">
+          <el-table-column prop="stem" label="名称" width="850">
           </el-table-column>
           <el-table-column prop="stacks" label="技能" width="250">
           </el-table-column>
@@ -42,6 +42,16 @@
             </template>
           </el-table-column>
         </el-table>
+        <el-pagination
+          @current-change="handleCurentChange"
+          :current-page="page"
+          :page-size="row"
+          class="el-pagination"
+          background
+          layout="prev, pager, next"
+          :total="total"
+        >
+        </el-pagination>
       </div>
     </div>
   </div>
@@ -51,16 +61,25 @@ import subject from "../gloabl/request/subject";
 export default {
   data() {
     return {
-      tableData: []
+      tableData: [],
+      page: 1,
+      total: 500,
+      row: 10
     };
   },
   created() {
-    this.getSubject();
+    this.getSubject(this.page, this.row);
   },
   methods: {
-    getSubject() {
-      subject.index().then(res => {
-        this.tableData = res.Subjectes;
+    handleCurentChange(rowsValue) {
+      const page = rowsValue;
+      this.getSubject(page, this.row);
+    },
+    getSubject(page, row) {
+      subject.index({ page, row }).then(res => {
+        console.log(res);
+        this.tableData = res.SubjectPage;
+        this.total = res.total;
       });
     },
     handleEdit(index, row) {
@@ -103,6 +122,9 @@ export default {
 };
 </script>
 <style lang="less" scoped>
+.el-pagination {
+  text-align: right;
+}
 .subject-section {
   padding: 10px 20px;
 }

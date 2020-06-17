@@ -42,7 +42,10 @@
             :key="index"
             class="form-item"
           >
-            <el-input v-model="item.title" class="option-input"></el-input>
+            <el-input
+              v-model="form.option[index]"
+              class="option-input"
+            ></el-input>
             <div slot="append" class="delInput" @click="delInput(index)">X</div>
           </div>
           <div class="Add-input" @click="AddInput">+</div>
@@ -83,13 +86,14 @@ export default {
 
   data() {
     return {
+      ches: 2,
       stacks: [],
       form: {
         stem: "",
         stacks_id: "",
         level: "",
-        option: [{ title: "" }, { title: "" }, { title: "" }],
-        currect: 1
+        option: [],
+        currect: 0
       },
       levelArr: [
         {
@@ -122,12 +126,13 @@ export default {
   },
   created() {
     stacks.index().then(res => {
-      this.stacks = res;
+      this.stacks = res.stacks;
     });
   },
   watch: {
     formdata: function(newVal) {
       this.form = newVal;
+      this.form.currect = this.form.currect + 1;
     }
   },
   methods: {

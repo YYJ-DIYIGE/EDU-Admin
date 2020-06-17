@@ -1,8 +1,8 @@
 import API from "./router";
 import request from "./axios";
 export default {
-  index() {
-    return request.get(API.subject);
+  index(params) {
+    return request.get(API.subject, params);
   },
   create(params) {
     return request.post(API.subject, params);

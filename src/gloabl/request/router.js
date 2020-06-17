@@ -32,7 +32,7 @@ export default {
   stacks: `${PREFIX}/stacks`,
   stacksId: id => `${PREFIX}/stacks/${id}`, //技能
   subject: `${PREFIX}/subject`,
-  subjectId: id => `${PREFIX}/subject/delete/${id}`, //题目
+  subjectId: id => `${PREFIX}/subject/${id}`, //题目
   permissions: `${PREFIX}/admin/permission`, //权限
   role: `${PREFIX}/admin/role`,
   roleId: id => `${PREFIX}/admin/role/${id}`, //角色

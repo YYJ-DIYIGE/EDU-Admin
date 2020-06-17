@@ -18,6 +18,7 @@ export default {
   created() {
     let id = Number(this.$route.query.id);
     subject.editshow(id).then(res => {
+      console.log(res);
       this.subject = res.Subject;
     });
   }

@@ -34,6 +34,16 @@
             </template>
           </el-table-column>
         </el-table>
+        <el-pagination
+          @current-change="handleCurentChange"
+          :current-page="page"
+          :page-size="row"
+          class="el-pagination"
+          background
+          layout="prev, pager, next"
+          :total="total"
+        >
+        </el-pagination>
       </div>
     </div>
   </div>
@@ -43,16 +53,24 @@ import stacks from "../gloabl/request/stacks";
 export default {
   data() {
     return {
-      tableData: []
+      tableData: [],
+      page: 1,
+      total: 500,
+      row: 14
     };
   },
   created() {
-    this.getStacks();
+    this.getStacks(this.page, this.row);
   },
   methods: {
-    getStacks() {
-      stacks.index().then(res => {
-        this.tableData = res;
+    handleCurentChange(rowsValue) {
+      const page = rowsValue;
+      this.getStacks(page, this.row);
+    },
+    getStacks(page, row) {
+      stacks.index({ page, row }).then(res => {
+        this.tableData = res.stacks;
+        this.total = res.total;
       });
     },
     handleEdit(row) {
@@ -91,6 +109,9 @@ export default {
 };
 </script>
 <style lang="less" scoped>
+.el-pagination {
+  text-align: right;
+}
 .enterprise-section {
   padding: 10px 20px;
 }
